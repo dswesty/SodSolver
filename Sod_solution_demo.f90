@@ -5,7 +5,7 @@
 !  Purpose:      Demo the sod_solution subroutine and produce a table
 !                of the Sod solution versus poistion
 !  Author:       F. Douglas Swesty
-!  Version:      0.1
+!  Version:      1.0
 !  Date:         9/3/2026
 !
 !  Note:         This code uses quadruple precision for all floating point

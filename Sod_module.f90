@@ -4,7 +4,7 @@
 !  Type:         module
 !  Purpose:      Compute the exact solution of the Sod problem
 !  Author:       F. Douglas Swesty
-!  Version:      0.1
+!  Version:      0.5
 !  Date:         9/2/2026
 !
 !  Note:         This module uses quadruple precision for all floating point
@@ -21,20 +21,25 @@ module sod_module
   
 contains
 
-  subroutine sod_solve(gamma,rho_left,p_left,rho_right,p_right,p_star,debug)
-                         ! This subroutine solves for the intermediate
-                         ! pressure in the central reguion of the solution
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  ! This subroutine solves for the intermediate pressure in the central
+  ! region of the solution
+  subroutine sod_intermediate_pressure(gamma,rhol,pl,rhor,pr,pstar,debug)
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     implicit none
 
     real(kind=QK), intent(in)  :: gamma       ! Adiabatic index
-    real(kind=QK), intent(in)  :: rho_left    ! Density on left side
-    real(kind=QK), intent(in)  :: p_left      ! Pressure on left side
-    real(kind=QK), intent(in)  :: rho_right   ! Density on right side
-    real(kind=QK), intent(in)  :: p_right     ! Pressure on right side
+    real(kind=QK), intent(in)  :: rhol        ! Density on left side
+    real(kind=QK), intent(in)  :: pl          ! Pressure on left side
+    real(kind=QK), intent(in)  :: rhor        ! Density on right side
+    real(kind=QK), intent(in)  :: pr          ! Pressure on right side
     
-    real(kind=QK), intent(out) :: p_star      ! Pressure in constant states
+    real(kind=QK), intent(out) :: pstar       ! Pressure in constant states
     logical, intent(in) :: debug              ! Debuging flag
     
+    real(kind=QK) :: gm1      ! Gamma - 1
+    real(kind=QK) :: gp1      ! Gamma + 1
     real(kind=QK) :: beta     ! Exponential factor in equations
     real(kind=QK) :: mu       ! Multiplicative factor in equations
 
@@ -46,8 +51,8 @@ contains
     real(kind=QK) :: f_right  ! Portion of equation due to right state
     real(kind=QK) :: df_right ! Derivative of left state equation
 
-    real(kind=QK) :: c_left
-    real(kind=QK) :: c_right
+    real(kind=QK) :: cl       ! Sound speed in left initial state
+    real(kind=QK) :: cr       ! Sound speed in right initial state
     
     
     real(kind=QK) :: p_new    ! New pressure
@@ -55,24 +60,22 @@ contains
     integer :: counter        ! Iteration counter
 
                               ! Convergence tolerance.  This value was chosen
-                              !  to assure convergence to 15 decimal places
+                              ! to assure convergence to 15 decimal places
     real(kind=QK), parameter :: TOLER=1.0q-16
 
     
     if( solved ) return       ! If we have already solved for pressure return
     
-                              ! Exponent in nonlinear equation 
-    beta = ( gamma-1.0q0 ) / ( 2.0q0*gamma )
-                              ! Muliplicative factor in equation
-    mu = ( gamma+1.0q0 ) / ( 2.0q0*gamma )
+    gm1 = gamma-1.0q0         ! Calculate gamma - 1
+    gp1 = gamma+1.0q0         ! Calculate gamma + 1
+    beta = gm1/(2.0q0*gamma)  ! Exponent in nonlinear equation 
+    mu = gp1/(2.0q0*gamma)    ! Muliplicative factor in equation
 
-                              ! Speed of sound in left state
-    c_left = sqrt(gamma*p_left/rho_left)
-                              ! Speed of sound in right state
-    c_right = sqrt(gamma*p_right/rho_right)
+    cl = sqrt(gamma*pl/rhol)  ! Speed of sound in left state
+    cr = sqrt(gamma*pr/rhor)  ! Speed of sound in right state
         
-                              ! Initial guess at pressure
-    p_star = 0.5q0*(p_left+p_right)
+    pstar = 0.5q0*(pl+pr)     ! Initial guess at pressure halfway between
+                              ! the pressures in the left and right states
     
     delta_p = TOLER+1.0q0     ! Initialize dp to some value larger
                               ! than the convergence tolerance
@@ -80,24 +83,20 @@ contains
     counter = 1               ! Initialize the iteration counter
 
     
-    if( p_left > p_right ) then ! Shock wave is moving left to right
+    if( pl > pr ) then ! Shock wave is moving left to right
        
       !-------------------------------------------------------------------------        
       do while( delta_p > TOLER ) ! Newton-Raphson loop
       !-------------------------------------------------------------------------        
-          
-
                                 ! Left equation & derivative
-        f_left = (2.0q0*c_left/(gamma-1.0q0))*( (p_star/p_left)**beta -1.0q0 )
-        df_left = (2.0q0*c_left/(gamma-1.0q0))*(p_star**(beta-1.0q0))/ &
-                  (p_left**beta)
+        f_left = (2.0q0*cl/gm1)*( (pstar/pl)**beta -1.0q0 )
+        df_left = (2.0q0*cl/gm1)*(pstar**(beta-1.0q0))/(pl**beta)
         
                                 ! Right equation and derivative
-        f_right = (p_star-p_right)/(rho_right*c_right * &
-                   sqrt(beta+mu*p_star/p_right) )
-        df_right = 1.0q0/(rho_right*c_right*sqrt(beta+mu*p_star/p_right) )  &
-                   -0.5q0 * (p_star-p_right) * (mu/p_right) / &
-                   ( rho_right*c_right*( sqrt(beta+mu*p_star/p_right)**3 ) )
+        f_right = (pstar-pr)/(rhor*cr * sqrt(beta+mu*pstar/pr) )
+        df_right = 1.0q0/(rhor*cr*sqrt(beta+mu*pstar/pr) )  &
+                   -0.5q0 * (pstar-pr) * (mu/pr) / &
+                   ( rhor*cr*( sqrt(beta+mu*pstar/pr)**3 ) )
 
         f = f_left+f_right      ! Total nonlinear equation
         
@@ -107,13 +106,13 @@ contains
         
         delta_p = f/fprime      ! Newton-Raphson change in pressure
 
-        p_new = p_star - delta_p! New pressure
+        p_new = pstar - delta_p! New pressure
 
         if( debug ) then   ! If debugging is on then output iteration
-          write(*,'(t2,i5,3(1x,es12.5))') counter,p_star,p_new,delta_p
+          write(*,'(t2,i5,3(1x,es12.5))') counter,pstar,p_new,delta_p
         endif
         
-        p_star = p_new          ! Update the pressure for next iteration
+        pstar = p_new           ! Update the pressure for next iteration
         
         counter = counter+1     ! Increment iteration counter
         
@@ -123,15 +122,22 @@ contains
 
     else                        ! Shock wave is moving right to left
 
-       stop 1
+stop 1
+       
     endif
-
+    
     solved = .true.             ! Indicate we have solved for pressure
     
     return
-  end subroutine sod_solve
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  end subroutine sod_intermediate_pressure
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  ! This subroutine gives the exact solution to the Sod problem
   subroutine sod_solution(x,t,gamma,rhol,pl,rhor,pr,rho,p,e,velocity)
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     implicit none
 
     real(kind=QK), intent(in) :: x          ! Position
@@ -157,7 +163,7 @@ contains
 
     real(kind=QK) :: pstar        ! Pressure in regions III & IV
     real(kind=QK) :: vstar        ! Velocity in regions III & IV
-    real(kind=QK) :: ctail         ! Speed of sound at tail of rarefaction
+    real(kind=QK) :: ctail        ! Speed of sound at tail of rarefaction
 
     real(kind=QK) :: mu           ! Multiplicative factor in Sod solution
     real(kind=QK) :: beta         ! Exponent in Sod solution
@@ -175,8 +181,9 @@ contains
     if( pl >= pr ) then  ! Left-moving shock
 
                                   ! If solver has not been called then call it
-      if( .not.solved ) call sod_solve(gamma,rhol,pl,rhor,pr,pstar,.false.)
-
+       if(.not.solved) then
+          call sod_intermediate_pressure(gamma,rhol,pl,rhor,pr,pstar,.false.)
+       endif
                                   ! Calculate velocity in regions III & IV
       vstar = ( 2.0q0*cl/gm1 )*(1.0q0-(pstar/pl)**beta )
                                   
@@ -249,12 +256,22 @@ contains
     endif
         
     return
-  end subroutine sod_solution
 
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  end subroutine sod_solution
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  ! This subroutine is a double precision wrapper around the quadruple precision
+  ! version thus allowing it to be called from a double precision code
   subroutine sod_solution_double(x,t,gamma,rhol,pl,rhor,pr,rho,p,e,velocity)
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     implicit none
 
     integer, parameter :: DK=kind(1.0d0)    ! Double precision kind
+    integer, parameter :: QK=kind(1.0q0)    ! Quadruple precision kind
     
     real(kind=DK), intent(in) :: x          ! Position
     real(kind=DK), intent(in) :: t          ! Time
@@ -268,10 +285,46 @@ contains
     real(kind=DK), intent(out) :: p         ! Pressure
     real(kind=DK), intent(out) :: e         ! Energy
     real(kind=DK), intent(out) :: velocity  ! Velocity
+
+    real(kind=QK) :: qx                     ! Position
+    real(kind=QK) :: qt                     ! Time
+    real(kind=QK) :: qgamma                 ! Adiabatic index
+    real(kind=QK) :: qrhol                  ! Density in left state
+    real(kind=QK) :: qpl                    ! Pressure in left state
+    real(kind=QK) :: qrhor                  ! Density in right state
+    real(kind=QK) :: qpr                    ! Pressure in right state
+    
+    real(kind=QK) :: qrho                   ! Density
+    real(kind=QK) :: qp                     ! Pressure
+    real(kind=QK) :: qe                     ! Energy
+    real(kind=QK) :: qvelocity              ! Velocity
+
+    
+          ! Transfer double precision data into quadruple precision variables
+    qx = x
+    qt = t
+    qgamma = gamma
+    qrhol = rhol
+    qpl = pl
+    qrhor = rhor
+    qpr = pr
+    qvelocity = velocity
+    
+          ! Compute the solution in quadruple precision
+    call sod_solution(qx,qt,qgamma,qrhol,qpl,qrhor,qpr,qrho,qp,qe,qvelocity)
+
+          ! Transfer data into double precision variables via a narrowing
+          ! conversion
+    rho = qrho
+    p = qp
+    e = qe
+    velocity = qvelocity 
     
     return
     
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   end subroutine sod_solution_double
+  !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   
 end module sod_module
   
