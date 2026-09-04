@@ -41,16 +41,17 @@ program sod_solution_demo
 
                                      ! Open the output file
   open(file='sod_exact.dat',newunit=lun,action='WRITE',status='replace')
+  write(lun,*) '#     x      velocity     pressure     density      specific energy'
   
   do while( x <= 2.0q0 )             ! Loop over range -2 < x < 2
 
                                      ! Get the exact solution
-     call sod_solution(x,t,gamma,rhol,pl,rhor,pr,rho,p,e,velocity)
+    call sod_solution(x,t,gamma,rhol,pl,rhor,pr,rho,p,e,velocity)
 
                                      ! Output solution to the file
-     write(lun,'(5(es12.5,1x))') x,velocity,p,rho,e
+    write(lun,'(5(es12.5,1x))') x,velocity,p,rho,e
 
-     x = x+0.01q0                    ! Increment the position
+    x = x+0.01q0                    ! Increment the position
      
   enddo
   
