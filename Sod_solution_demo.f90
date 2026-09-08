@@ -22,10 +22,17 @@ program sod_solution_demo
   integer, parameter :: QK=kind(1.0q0)
 
   real(kind=QK) :: gamma             ! Adiabatic index
-  real(kind=QK) :: rhol = 1.0q0      ! Density on left side
-  real(kind=QK) :: pl = 1.0q0        ! Pressure on left side
-  real(kind=QK) :: rhor = 0.125q0    ! Density on right side
-  real(kind=QK) :: pr = 0.1q0        ! Pressure on right side
+  
+!  real(kind=QK) :: rhol = 1.0q0      ! Density on left side
+!  real(kind=QK) :: pl = 1.0q0        ! Pressure on left side
+!  real(kind=QK) :: rhor = 0.125q0    ! Density on right side
+!  real(kind=QK) :: pr = 0.1q0        ! Pressure on right side
+
+  real(kind=QK) :: rhor = 1.0q0      ! Density on left side
+  real(kind=QK) :: pr = 1.0q0        ! Pressure on left side
+  real(kind=QK) :: rhol = 0.125q0    ! Density on right side
+  real(kind=QK) :: pl = 0.1q0        ! Pressure on right side
+
   real(kind=QK) :: p_star            ! Pressure in constant states
   real(kind=QK) :: t                 ! Time
   real(kind=QK) :: x                 ! Position

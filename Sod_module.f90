@@ -41,7 +41,12 @@ contains
     real(kind=QK) :: gm1      ! Gamma - 1
     real(kind=QK) :: gp1      ! Gamma + 1
     real(kind=QK) :: beta     ! Exponential factor in equations
-    real(kind=QK) :: mu       ! Multiplicative factor in equations
+    real(kind=QK) :: mu       ! Multiplicative factors in equations
+    real(kind=QK) :: eta
+    real(kind=QK) :: lambda
+    real(kind=QK) :: omega
+    real(kind=QK) :: delta
+    real(kind=QK) :: ddelta
 
     real(kind=QK) :: f        ! Nonlinear equation for intermediate pressure
     real(kind=QK) :: fprime   ! Derivative of non-linear equation w.r.t. press.
@@ -59,6 +64,9 @@ contains
     real(kind=QK) :: delta_p  ! Change in pressure
     integer :: counter        ! Iteration counter
 
+    integer :: denom          ! Denominator of Rankine-Hugoniot equation
+    integer :: ddenom         ! Derivative of denominator
+    
                               ! Convergence tolerance.  This value was chosen
                               ! to assure convergence to 15 decimal places
     real(kind=QK), parameter :: TOLER=1.0q-16
@@ -68,11 +76,13 @@ contains
     
     gm1 = gamma-1.0q0         ! Calculate gamma - 1
     gp1 = gamma+1.0q0         ! Calculate gamma + 1
-    beta = gm1/(2.0q0*gamma)  ! Exponent in nonlinear equation 
-    mu = gp1/(2.0q0*gamma)    ! Muliplicative factor in equation
+    beta = gm1/(2.0q0*gamma)  ! Exponent in nonlinear equation
+    
+    mu = gp1/(2.0q0*gamma)    ! Muliplicative factors in equations
 
     cl = sqrt(gamma*pl/rhol)  ! Speed of sound in left state
     cr = sqrt(gamma*pr/rhor)  ! Speed of sound in right state
+
         
     pstar = 0.5q0*(pl+pr)     ! Initial guess at pressure halfway between
                               ! the pressures in the left and right states
@@ -85,18 +95,24 @@ contains
     
     if( pl > pr ) then ! Shock wave is moving left to right
        
-      !-------------------------------------------------------------------------        
+      !-------------------------------------------------------------------------
       do while( delta_p > TOLER ) ! Newton-Raphson loop
       !-------------------------------------------------------------------------        
                                 ! Left equation & derivative
         f_left = (2.0q0*cl/gm1)*( (pstar/pl)**beta -1.0q0 )
+
         df_left = (2.0q0*cl/gm1)*(pstar**(beta-1.0q0))/(pl**beta)
         
-                                ! Right equation and derivative
-        f_right = (pstar-pr)/(rhor*cr * sqrt(beta+mu*pstar/pr) )
-        df_right = 1.0q0/(rhor*cr*sqrt(beta+mu*pstar/pr) )  &
-                   -0.5q0 * (pstar-pr) * (mu/pr) / &
-                   ( rhor*cr*( sqrt(beta+mu*pstar/pr)**3 ) )
+                                ! Right equation & derivative
+        eta = -2.0q0*cr/sqrt(2.0q0*gamma*gm1)
+        lambda = gp1/(gm1*pr)
+        omega = -1.0q0/pr
+        delta = 1.0q0/sqrt(1.0q0+lambda*pstar)
+        f_right = eta*(1.0q0+omega*pstar)*delta
+        
+        ddelta = -0.5q0*lambda*delta**3
+        df_right = eta*(omega*delta+(1.0q0+omega*pstar)*ddelta)
+                              
 
         f = f_left+f_right      ! Total nonlinear equation
         
@@ -121,8 +137,48 @@ contains
       !-------------------------------------------------------------------------        
 
     else                        ! Shock wave is moving right to left
+       
+      !-------------------------------------------------------------------------
+      do while( delta_p > TOLER ) ! Newton-Raphson loop
+      !-------------------------------------------------------------------------        
 
-stop 1
+                                ! Left equation & derivative
+        eta = 2.0q0*cl/sqrt(2.0q0*gamma*gm1)
+        lambda = gp1/(gm1*pl)
+        omega = -1.0q0/pl
+        delta = 1.0q0/sqrt(1.0q0+lambda*pstar)
+        f_left = eta*(1.0q0+omega*pstar)*delta
+
+        ddelta = -0.5q0*lambda*delta**3
+        df_left = eta*(omega*delta+(1.0q0+omega*pstar)*ddelta)
+          
+         ! Right equation & derivative
+        f_right = -(2.0q0*cr/gm1)*( (pstar/pr)**beta -1.0q0 )
+
+        df_right = -(2.0q0*cl/gm1)*(pstar**(beta-1.0q0))/(pr**beta)
+                                       
+
+        f = f_left+f_right      ! Total nonlinear equation
+        
+                                ! Derivative of total nonlinear equation with
+                                ! respect to the intermediate pressure
+        fprime = (df_left+df_right)
+        
+        delta_p = f/fprime      ! Newton-Raphson change in pressure
+
+        p_new = pstar - delta_p! New pressure
+
+        if( debug ) then   ! If debugging is on then output iteration
+          write(*,'(t2,i5,3(1x,es12.5))') counter,pstar,p_new,delta_p
+        endif
+        
+        pstar = p_new           ! Update the pressure for next iteration
+        
+        counter = counter+1     ! Increment iteration counter
+        
+      !-------------------------------------------------------------------------        
+      enddo                       ! End of Newton-Raphson loop
+      !-------------------------------------------------------------------------        
        
     endif
     
@@ -178,12 +234,16 @@ stop 1
     cl = sqrt( gamma*pl/rhol )    ! Calculate left state sound speed
     cr = sqrt( gamma*pr/rhor )    ! Calculate right state sound speed
 
-    if( pl >= pr ) then  ! Left-moving shock
-
                                   ! If solver has not been called then call it
-       if(.not.solved) then
-          call sod_intermediate_pressure(gamma,rhol,pl,rhor,pr,pstar,.false.)
-       endif
+    if(.not.solved) then
+      call sod_intermediate_pressure(gamma,rhol,pl,rhor,pr,pstar,.false.)
+    endif
+
+
+    !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
+    if( pl >= pr ) then  ! Right-moving shock
+    !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
+       
                                   ! Calculate velocity in regions III & IV
       vstar = ( 2.0q0*cl/gm1 )*(1.0q0-(pstar/pl)**beta )
                                   
@@ -246,14 +306,79 @@ stop 1
       endif
       !----------------------------------------------------------
 
-      e = p/(rho*gm1)             ! Specific energy
+    !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
+    else                 ! Left moving shock
+    !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
+             
+                                  ! Calculate velocity in regions III & IV
+      vstar = -( 2.0q0*cr/gm1 )*(1.0q0-(pstar/pr)**beta )
 
+      ctail = cr*(pstar/pr)**beta ! Speed of sound at tail of rarefaction
       
-    else                 ! Right moving shock
+      xrhead = cr*t               ! Position of rarefaction head
       
-       stop 2                     ! Stop w/ error until implemented 
+      xrtail = (vstar+ctail)*t    ! Position of rarefaction tail
 
+      xcontact = vstar*t          ! Position of contact discontinuity
+
+                                  ! Position of shock
+      xshock = -t*cl*sqrt(mu*(pstar/pl)+beta)
+
+      !----------------------------------------------------------
+      if( xrhead <= x ) then                       ! Region I
+      !----------------------------------------------------------
+         
+        rho = rhor                     ! Density
+        p = pr                         ! Pressure
+        velocity = 0.0q0               ! Velocity
+
+      !----------------------------------------------------------
+      elseif( xrtail <= x .and. x < xrhead) then   ! Region II
+      !----------------------------------------------------------
+
+                                       ! Density
+        rho = rhor*(2.0q0/gp1 + (gm1*x)/(gp1*cr*t) )**(2.0q0/gm1)
+                                       ! Pressure
+        p = pr*(2.0q0/gp1 + (gm1*x)/(gp1*cr*t))**(2.0q0*gamma/gm1)
+        velocity = (2.0q0/gp1)*(-cr+x/t)! Velocity
+        
+      !----------------------------------------------------------
+      elseif( xcontact <= x .and. x < xrtail ) then ! Region III
+      !----------------------------------------------------------
+         
+                                       ! Density
+        rho = rhor*(pstar/pr)**(1.0q0/gamma)
+        p = pstar                      ! Pressure
+        velocity = vstar               ! Velocity
+
+      !----------------------------------------------------------
+      elseif( xshock <= x .and. x < xcontact ) then ! Region IV
+      !----------------------------------------------------------
+
+                                       ! Density  
+        rho = rhol*(  (gp1*pstar+gm1*pl) / (gm1*pstar+gp1*pl) )
+        p = pstar                      ! Pressure
+        velocity = vstar               ! Velocity
+
+      !----------------------------------------------------------
+      else                                         ! Region V
+      !----------------------------------------------------------
+         
+        rho = rhol                     ! Density
+        p = pl                         ! Pressure
+        velocity = 0.0q0               ! Velocity
+
+      !----------------------------------------------------------
+      endif
+      !----------------------------------------------------------
+
+
+    !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
     endif
+    !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
+
+    e = p/(rho*gm1)             ! Specific energy
+
         
     return
 
