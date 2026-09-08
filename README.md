@@ -72,7 +72,7 @@ We now describe the code
 
 ### The Sod_module.f90 file
 
-The **Sod_module.f90** file houses the sod_module which contains three subroutine
+The **`Sod_module.f90`** file houses the sod_module which contains three subroutine
 
     
 ## References
