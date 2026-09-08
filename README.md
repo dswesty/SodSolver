@@ -57,7 +57,8 @@ The solution consists of a series of five regions which we list in order, from l
 5. A constant reion with initial right state values of density, pressure, and velocity.
 
 
-The density in each of these regions is depicted as
+The density in each of these regions is depicted as in ![this plot]{docs/sod_regions.png}.
+
   
   
 
