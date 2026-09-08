@@ -50,12 +50,14 @@ where $\gamma$ is the adiabatic index of the gas.  In his original paper Sod too
 For the exact solution of the weak form of the Euler equations we follow the notation
 of LeVeque (2002)[^2]
 The solution consists of a series of five regions which we list in order, from left to right:
-- A constant reion with initial left state values for density, pressure, and velocity.
-- A rarefaction wave
-- A constant region bounded by a contact discontinuity on the right.
-- A constant region bounded by a shock wave on the right.
-- A constant reion with initial right state values of density, pressure, and velocity.
-  The density in each of these regions is depicted as
+1. A constant reion with initial left state values for density, pressure, and velocity.
+2. A rarefaction wave
+3. A constant region bounded by a contact discontinuity on the right.
+4. A constant region bounded by a shock wave on the right.
+5. A constant reion with initial right state values of density, pressure, and velocity.
+
+
+The density in each of these regions is depicted as
   
   
 
