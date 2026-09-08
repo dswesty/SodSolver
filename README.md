@@ -57,12 +57,7 @@ The solution consists of a series of five regions which we list in order, from l
 5. A constant reion with initial right state values of density, pressure, and velocity.
 
 
-The density in each of these regions is depicted as in ![this plot]{docs/sod_regions.png}.
-
-  
-  
-
-
+The density in each of these regions is depicted as in ![this plot](docs/sod_regions.png).
 
 
 [^1] Sod, G. A. (1978) "A Survey of Several Finite Difference Methods for Systems of Nonlinear Hyperbolic Conservation Laws" (PDF). J. Comput. Phys. 27 (1): 1–31. Bibcode:1978JCoPh..27....1S. doi:10.1016/0021-9991(78)90023-2. OSTI 6812922.
