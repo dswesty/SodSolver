@@ -64,7 +64,16 @@ at $t=0.7$ seconds for the case of $\gamma=5/3$.
 
 ## The Solution Code and Demonstration Programs 
 
-The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran was chosen as the programming language in order to allow the use of quadruple precision arithmetic.   Carrying out  the calculations in quadruple precision allows the interative Newton-Raphson procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.
+The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran was chosen as the programming language in order to allow the use of quadruple precision arithmetic.   Carrying out  the calculations in quadruple precision allows the interative Newton-Raphson procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.  A double precision interface to the solver is available
+so that the code can be called directly from a double precision hydrodynamic code.
+With the exception of the use of quadruple precision variables and arithmetic every effort has been made to make the code compliant with the Fortran 2023 ISO standard and to use modern coding convention including disabling the use of Fortran's implicit declaration scheme through ubiquitous use of the implicit none statement.
+
+We now describe the code
+
+### The Sod_module.f90 file
+
+The **Sod_module.f90** file houses the sod_module which contains three subroutine
+
     
 ## References
 
