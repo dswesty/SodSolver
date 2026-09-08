@@ -63,10 +63,8 @@ at $t=0.7$ seconds for the case of $\gamma=5/3$.
 ## Calculating the Exact Solution
 
 ## The Solution Code and Demonstration Programs 
-    The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran 
-    was chose to allow the use of quadruple precision arithmetic.   Carrying out 
-the calculations in quadruple precision allows the interative Newton-Raphson 
-procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.
+
+The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran was chosen as the programming language in order to allow the use of quadruple precision arithmetic.   Carrying out  the calculations in quadruple precision allows the interative Newton-Raphson procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.
     
 ## References
 
