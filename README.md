@@ -47,12 +47,24 @@ form  $P = K \rho^\gamma$
 where $\gamma$ is the adiabatic index of the gas.  In his original paper Sod took the value of $\gamma = 1.4$,  appropriate for a diatomic ideal gas such as molecular oxygen or molecular nitrogen.  In practice the value of $\gamma=5/3$, reflective of a monatomic ideal gas, is used for numerical verification testing.
 
 ## The Exact Solution
+For the exact solution of the weak form of the Euler equations we follow the notation
+of LeVeque (2002)[^2]
+The solution consists of a series of five regions which we list in order, from left to right:
+- A constant reion with initial left state values for density, pressure, and velocity.
+- A rarefaction wave
+- A constant region bounded by a contact discontinuity on the right.
+- A constant region bounded by a shock wave on the right.
+- A constant reion with initial right state values of density, pressure, and velocity.
+  The density in each of these regions is depicted as
+  
+  
+
 
 
 
 [^1] Sod, G. A. (1978) "A Survey of Several Finite Difference Methods for Systems of Nonlinear Hyperbolic Conservation Laws" (PDF). J. Comput. Phys. 27 (1): 1–31. Bibcode:1978JCoPh..27....1S. doi:10.1016/0021-9991(78)90023-2. OSTI 6812922.
 
-
+[^2} LeVeque, R.J. (2002) "Finite Volume Methods for Hyperbolic Problems", Cambridge University Press, ISBN-13 978-0-521-00924-9
 
 
 
