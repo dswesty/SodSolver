@@ -72,7 +72,9 @@ We now describe the code
 
 ### The Sod_module.f90 file
 
-The **`Sod_module.f90`** file houses the sod_module which contains three subroutine
+The **`Sod_module.f90`** file houses the Fortran module **`sod_module`** which contains three subroutines:
+- **`sod_intermediate_pressure`** which calculates the pressure in in regions III & IV by solving a non-linear equation using Newton-Raphson iteration.
+- **`Sod_solution`** which calculates the value of the density $\rho$, the pressure $P$, and the velocity $v$ of the solution given a position $x$ and time $t$. 
 
     
 ## References
