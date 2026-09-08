@@ -57,7 +57,18 @@ The solution consists of a series of five regions which we list in order, from l
 5. A constant region with initial right state values of density, pressure, and velocity.
 
 
-The density in each of these regions is depicted as in ![this plot](docs/sod_regions.png).
+The density in each of these regions is depicted as in ![this plot](docs/sod_regions.png)
+at $t=0.7$ seconds for the case of $\gamma=5/3$.
+
+## Calculating the Exact Solution
+
+## The Solution Code and Demonstration Programs 
+    The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran 
+    was chose to allow the use of quadruple precision arithmetic.   Carrying out 
+the calculations in quadruple precision allows the interative Newton-Raphson 
+procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.
+    
+## References
 
 
 [^1] Sod, G. A. (1978) "A Survey of Several Finite Difference Methods for Systems of Nonlinear Hyperbolic Conservation Laws" (PDF). J. Comput. Phys. 27 (1): 1–31. Bibcode:1978JCoPh..27....1S. doi:10.1016/0021-9991(78)90023-2. OSTI 6812922.
