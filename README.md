@@ -54,7 +54,7 @@ The solution consists of a series of five regions which we list in order, from l
 2. A rarefaction wave
 3. A constant region bounded by a contact discontinuity on the right.
 4. A constant region bounded by a shock wave on the right.
-5. A constant reion with initial right state values of density, pressure, and velocity.
+5. A constant region with initial right state values of density, pressure, and velocity.
 
 
 The density in each of these regions is depicted as in ![this plot](docs/sod_regions.png).
