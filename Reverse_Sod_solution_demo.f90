@@ -3,17 +3,18 @@
 !  Program unit: sod_solution_demo
 !  Type:         module
 !  Purpose:      Demo the sod_solution subroutine and produce a table
-!                of the Sod solution versus poistion
+!                of the reverse Sod solution (shock moving in the -X direction
+!                versus poistion
 !  Author:       F. Douglas Swesty
 !  Version:      1.0
-!  Date:         9/3/2026
+!  Date:         9/8/2026
 !
 !  Note:         This code uses quadruple precision for all floating point
 !                arithmetic
 !
 !-------------------------------------------------------------------------------
 
-program sod_solution_demo
+program reverse_sod_solution_demo
 
   use sod_module, only: sod_solution
   
@@ -23,10 +24,10 @@ program sod_solution_demo
 
   real(kind=QK) :: gamma             ! Adiabatic index
   
-  real(kind=QK) :: rhol = 1.0q0      ! Density on left side
-  real(kind=QK) :: pl = 1.0q0        ! Pressure on left side
-  real(kind=QK) :: rhor = 0.125q0    ! Density on right side
-  real(kind=QK) :: pr = 0.1q0        ! Pressure on right side
+  real(kind=QK) :: rhor = 1.0q0      ! Density on left side
+  real(kind=QK) :: pr = 1.0q0        ! Pressure on left side
+  real(kind=QK) :: rhol = 0.125q0    ! Density on right side
+  real(kind=QK) :: pl = 0.1q0        ! Pressure on right side
 
   real(kind=QK) :: p_star            ! Pressure in constant states
   real(kind=QK) :: t                 ! Time
@@ -42,7 +43,7 @@ program sod_solution_demo
   gamma = 5.0q0/3.0q0                ! Initialize adiabatic index
 
                                      ! Open the output file
-  open(file='sod_exact.dat',newunit=lun,action='WRITE',status='replace')
+  open(file='reverse_sod_exact.dat',newunit=lun,action='WRITE',status='replace')
   write(lun,*) '#     x      velocity     pressure     density      specific energy'
   
   do while( x <= 2.0q0 )             ! Loop over range -2 < x < 2
@@ -61,5 +62,5 @@ program sod_solution_demo
   
   stop 0
   
-end program sod_solution_demo
+end program reverse_sod_solution_demo
   
