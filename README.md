@@ -76,8 +76,15 @@ We now describe the code
 
 The **`Sod_module.f90`** file houses the Fortran module **`sod_module`** which contains three subroutines:
 - **`sod_intermediate_pressure`** which calculates the pressure in in regions III & IV by solving a non-linear equation using Newton-Raphson iteration.
-- **`Sod_solution`** which calculates the value of the density $\rho$, the pressure $P$, and the velocity $v$ of the solution given a position $x$ and time $t$. 
+- **`sod_solution`** which calculates the value of the density $\rho$, the pressure $P$, and the velocity $v$ of the solution given a position $x$ and time $t$. 
+- **`sod_solution_double`** which provides a double precision interface to the
+  quadruple precision subroutine **`sod_solution`**.
 
+  In addition to the three core subroutines contained in **`sod_module`** there are also
+  three demonstration programs provided which demonstrate how these subroutines can be used.  The file **`Sod_intermediate_pressure_demo.f90`** has a demonstration program
+  illustrating the use of the **`sod_internmediate_pressure`** subroutine to find
+  the intermediate pressure in regions III & IV.
+  
     
 ## References
 
