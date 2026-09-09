@@ -7,13 +7,13 @@ The Sod shock tube problem for the  1-D Euler equations of inviscid, compressibl
 The solution of the problem is known exactly although it does require finding the root of a real nonlinear equation numerically.  
 The problem as stated by Sod is specifies the values for the density $\rho$, the pressure $P$, and the velocity $v$ in left and right initial states surrounding the location of $x=0$.  The exact problem as specified by Sod is
 ```math
-\big(
+\Bigg(
 \begin{array}{l}
 \rho_L\\
 P_L\\
 v_L
 \end{array}
-\big)
+\Bigg)
 =
 \left(
 \begin{array}{l}
