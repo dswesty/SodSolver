@@ -57,7 +57,7 @@ The solution consists of a series of five regions which we list in order, from l
 5. A constant region with initial right state values of density, pressure, and velocity.
 
 
-The density in each of these regions is depicted as in ![this plot](docs/sod_regions.png)
+The density in each of these regions, for the Sod initial conditions, is depicted as in ![this plot](docs/sod_regions.png)
 at $t=0.7$ seconds for the case of $\gamma=5/3$.
 
 ## Calculating the Exact Solution
