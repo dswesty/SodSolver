@@ -97,8 +97,9 @@ This file contains a program demonstrating the use of the **`sod_solution`** sub
 named **`sod_plot.gp`**.   Issuing the command **`gnuplot sod_plot.gp`** will cause a window to be displayed with the plot.   Editing this script can alternatively produce an image or Postscript file, instead of a new window, with the plot shown below.
 ![This plot contains four subplots depicting the density, pressure, velocity, and specific energy at t=0.7 seconds for a gamma=5/3 gas with the Sod initial conditions.](docs/sod_exact.png).
 
-    ### The file **`Reverse_Sod_solution_demo.f90`**
-This file contains a program demonstrating the use of the **`sod_solution`** subroutine to find the density, pressure, velocity, and specific energy as a function of position at a specified time for the reverse Sod problem in which the left and right initial states are swapped.   The program outputs an ASCII file named **`reverse_sod_exact.dat`** from which a plot illustrating the solution can be generated using the **Gnuplot** script 
+### The file **`Reverse_Sod_solution_demo.f90`**
+
+This file contains a program demonstrating the use of the **`sod_solution`** subroutine to find the density, pressure, velocity, and specific energy as a function of position at a specified time for the reverse Sod problem in which the left and right initial states are swapped.   This problem produces a shock wave moving to the right and a rarefaction wave propagating to the right.    The program outputs an ASCII file named **`reverse_sod_exact.dat`** from which a plot illustrating the solution can be generated using the **Gnuplot** script 
 named **`reverse_sod_plot.gp`**.   Issuing the command **`gnuplot reverse_sod_plot.gp`** will cause a window to be displayed with the plot.   Editing this script can alternatively produce an image or Postscript file, instead of a new window, with the plot shown below.
 ![This plot contains four subplots depicting the density, pressure, velocity, and specific energy at t=0.7 seconds for a gamma=5/3 gas with the reverse Sod initial conditions.](docs/reverse_sod_exact.png).   We note that the reverse Sod problem is another important verification test for hydrodynamic codes that can uncover pugs missed 
 when only the original Sod problem is used as a test.
