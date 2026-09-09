@@ -49,6 +49,7 @@ where $\gamma$ is the adiabatic index of the gas.  In his original paper Sod too
 ## The Exact Solution
 For the exact solution of the weak form of the Euler equations we follow the notation
 of LeVeque (2002)[^2]  The solution of the Sod problem consists of a series of five regions which we list in order, from left to right:
+
 <ol type="I">
   <li> A constant region with initial left state values for density, pressure, and velocity.  </li>
   <li> A rarefaction wave </li>
@@ -57,7 +58,8 @@ of LeVeque (2002)[^2]  The solution of the Sod problem consists of a series of f
     <li> A constant region with initial right state values of density, pressure, and velocity.  </li>
 </ol>
 
-The density in each of these regions, for the Sod initial conditions, is depicted as in ![this plot](docs/sod_regions.png)
+In regions III & V the pressure has the intermediate value $P_\ast$ and the velocity has the intermediate value $v_\ast$.
+The density in each of these regions, for the Sod initial conditions,![is shown in this plot](docs/sod_regions.png)
 at $t=0.7$ seconds for the case of $\gamma=5/3$.
 
 ## Calculating the Exact Solution
