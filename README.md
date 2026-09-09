@@ -81,7 +81,10 @@ The **`Sod_module.f90`** file houses the Fortran module **`sod_module`** which c
   quadruple precision subroutine **`sod_solution`**.
 
   In addition to the three core subroutines contained in **`sod_module`** there are also
-  three demonstration programs provided which demonstrate how these subroutines can be used.  The file **`Sod_intermediate_pressure_demo.f90`** has a demonstration program
+  three demonstration programs provided which demonstrate how these subroutines can be used.
+
+  ### The file **`Sod_intermediate_pressure_demo.f90`**
+    This file has a demonstration program
   illustrating the use of the **`sod_internmediate_pressure`** subroutine to find
   the intermediate pressure in regions III & IV.
   
