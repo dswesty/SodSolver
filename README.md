@@ -48,17 +48,24 @@ where $\gamma$ is the adiabatic index of the gas.  In his original paper Sod too
 
 ## The Exact Solution
 For the exact solution of the weak form of the Euler equations we follow the notation
-of LeVeque (2002)[^2]
-The solution consists of a series of five regions which we list in order, from left to right:
-1. A constant reion with initial left state values for density, pressure, and velocity.
+of LeVeque (2002)[^2]  The solution of the Sod problem consists of a series of five regions which we list in order, from left to right:
+
+<ol type="I">
+  <li> A constant region with initial left state values for density, pressure, and velocity.  </li>
+  <li> A rarefaction wave </li>
+  <li> A constant region bounded by a contact discontinuity on the right. </li>
+    <li> A constant region bounded by a shock wave on the right.  </li>
+    <li> A constant region with initial right state values of density, pressure, and velocity.  </li>
+</ol>
+
+In regions III & V the pressure has the intermediate value $P_\ast$ and the velocity has the intermediate value $v_\ast$.
+The density in each of these regions, 
+for the Sod initial conditions and $\gamma=5/3$, is shown at $t=0.7$ seconds in the plot below ![This plot depicts the density in regions I through V in order ,1. A constant region with initial left state values for density, pressure, and velocity.
 2. A rarefaction wave
 3. A constant region bounded by a contact discontinuity on the right.
 4. A constant region bounded by a shock wave on the right.
 5. A constant region with initial right state values of density, pressure, and velocity.
-
-
-The density in each of these regions is depicted as in ![this plot](docs/sod_regions.png)
-at $t=0.7$ seconds for the case of $\gamma=5/3$.
+moving from left to right.](docs/sod_regions.png).
 
 ## Calculating the Exact Solution
 
@@ -74,8 +81,22 @@ We now describe the code
 
 The **`Sod_module.f90`** file houses the Fortran module **`sod_module`** which contains three subroutines:
 - **`sod_intermediate_pressure`** which calculates the pressure in in regions III & IV by solving a non-linear equation using Newton-Raphson iteration.
-- **`Sod_solution`** which calculates the value of the density $\rho$, the pressure $P$, and the velocity $v$ of the solution given a position $x$ and time $t$. 
+- **`sod_solution`** which calculates the value of the density $\rho$, the pressure $P$, and the velocity $v$ of the solution given a position $x$ and time $t$. 
+- **`sod_solution_double`** which provides a double precision interface to the
+  quadruple precision subroutine **`sod_solution`**.
 
+In addition to the three core subroutines contained in **`sod_module`** there are also
+three demonstration programs provided which demonstrate how these subroutines can be used.
+  
+### The file **`Sod_intermediate_pressure_demo.f90`**
+This file contains a program demonstrating the use of the **`sod_intermediate_pressure`** subroutine to find
+the intermediate pressure in regions III & IV.
+
+  ### The file **`Sod_solution_demo.f90`**
+This file contains a program demonstrating the use of the **`sod_solution`** subroutine to find the density, pressure, velocity, and specific energy as a function of position at a specified time.   THe program outputs an ASCII file named **`sod_exact.dat`** from which a plot illustrating the solution can be generated using the **Gnuplot** script 
+named **`sod_plot.gp`**.   Issuing the command **`gnuplot sod_plot.gp`** will cause a window to pop up displaying the plot.   Editing this script on can alternatively produce an image or Postscript file with the plot.
+
+  
     
 ## References
 
