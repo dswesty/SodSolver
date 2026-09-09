@@ -74,11 +74,12 @@ regions III & V by solving the nonlinear equation
 ``` math
 f_L(P_\ast) + f_R(P_\ast) = 0.
 ```
-In this case $f_$ is determined by the equations governing the rarefaction
+In this case $f_L$ is determined by the equations governing the rarefaction
 ``` math
-f_L(P_\ast) =
+f_L(P_\ast) = \frac{2 c_L}{\gamma-1}
+\left( \left(\frac{P_\ast}{P_L}\right)^\beta -1 \right
 ```
-
+where
 
 ## The Solution Code and Demonstration Programs 
 
