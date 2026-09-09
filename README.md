@@ -60,8 +60,7 @@ of LeVeque (2002)[^2]  The solution of the Sod problem consists of a series of f
 
 In regions III & V the pressure has the intermediate value $P_\ast$ and the velocity has the intermediate value $v_\ast$.
 The density in each of these regions, 
-for the Sod initial conditions, is shown in the plot below ![This plot depicts the density in regions I through V in order ,oving from left to right.](docs/sod_regions.png)
-at $t=0.7$ seconds for the case of $\gamma=5/3$.
+for the Sod initial conditions and $\gamma=5/3$, is shown at $t=0.7$ secondsin the plot below ![This plot depicts the density in regions I through V in order ,oving from left to right.](docs/sod_regions.png).
 
 ## Calculating the Exact Solution
 
