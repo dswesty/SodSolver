@@ -89,8 +89,13 @@ In addition to the three core subroutines contained in **`sod_module`** there ar
 three demonstration programs provided which demonstrate how these subroutines can be used.
   
 ### The file **`Sod_intermediate_pressure_demo.f90`**
-This file has a demonstration program demonstrating the use of the **`sod_internmediate_pressure`** subroutine to find
+This file contains a program demonstrating the use of the **`sod_intermediate_pressure`** subroutine to find
 the intermediate pressure in regions III & IV.
+
+  ### The file **`Sod_solution_demo.f90`**
+This file contains a program demonstrating the use of the **`sod_solution`** subroutine to find the density, pressure, velocity, and specific energy as a function of position at a specified time.   THe program outputs an ASCII file named **`sod_exact.dat`** from which a plot illustrating the solution can be generated using the **Gnuplot** script 
+named **`sod_plot.gp`**.   Issuing the command **`gnuplot sod_plot.gp`** will cause a window to pop up displaying the plot.   Editing this script on can alternatively produce an image or Postscript file with the plot.
+
   
     
 ## References
