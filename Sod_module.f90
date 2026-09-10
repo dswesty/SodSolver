@@ -4,7 +4,7 @@
 !  Type:         module
 !  Purpose:      Compute the exact solution of the Sod problem
 !  Author:       F. Douglas Swesty
-!  Version:      0.5
+!  Version:      1.0
 !  Date:         9/2/2026
 !
 !  Note:         This module uses quadruple precision for all floating point
