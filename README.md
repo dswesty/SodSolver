@@ -94,10 +94,13 @@ f_R(P_\ast) = \frac{-2 c_R}{\sqrt{2\gamma\left(\gamma-1\right)}}
 \left( \frac{1+\omega P_\ast }{\sqrt{1+\lambda P_\ast }}\right)
 ```
 where 
-``` math
-\omega = \frac{-1}{P_\ast}
+```math
+c_R = \sqrt{\frac{\gamma P_R}{\rho_R}}
 ```
-and
+is the sound speed in the initial right state and
+``` math
+\omega = \frac{-1}{P_\ast},
+```
  ```math
  \lambda = \frac{\gamma+1}{\left(\gamma-1\right) P_R}
  ```
