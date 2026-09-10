@@ -206,9 +206,10 @@ v\left(x\right) = 0
 
 In the exposition above we have followed the solution as outlined by LeVeque (2002) although our notation differs slightly from that of LeVeque's.   
 For the case where $P_L < P_R$, the reverse Sod problem,  the structure of the solution is the mirror image  of that for the case where $P_L > P_R$. 
-Wee refer the reader to LeVeque for 
+We refer the reader to LeVeque for 
 the details of the solution for the reverse Sod problem.    
-The code in this repository can handle both the $P_L > P_R$ and 
+
+Note that the code in this repository can handle both the $P_L > P_R$ and 
 the $P_L < P_R$ cases.
 
 
