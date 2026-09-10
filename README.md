@@ -178,7 +178,21 @@ P\left(x\right) = P_\ast
 ```math
 v\left(x\right) = v_\ast
 ```
-
+### For $x_c \le x < x_s$
+```math
+\rho\left(x\right) = \rho_R \left(
+\frac{
+\left( \gamma+1 \right) P_\ast + \left( \gamma-1 \right) P_R
+}{
+\left( \gamma-1 \right) P_\ast + \left( \gamma+1 \right) P_R
+} \right)
+```
+```math
+P\left(x\right) = P_\ast
+```
+```math
+v\left(x\right) = v_\ast
+```
 
 
 
