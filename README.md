@@ -82,6 +82,7 @@ f_L(P_\ast) = \frac{2 c_L}{\gamma-1}
 where $c_L$  is the sound speed in the region I given by
 ```math
 c_L = \sqrt{\frac{\gamma P_L}{\rho_L}}.
+```
 
 ## The Solution Code and Demonstration Programs 
 
