@@ -78,7 +78,7 @@ for $P_\ast$ by means of Newton-Raphson iteration.
 In this case $f_L$ is determined by the equations describing the rarefaction
 ``` math
 f_L(P_\ast) = \frac{2 c_L}{\gamma-1}
-\left( \left(\frac{P_\ast}{P_L}\right)^\mu -1 \right)
+\left( \left(\frac{P_\ast}{P_L}\right)^\beta -1 \right)
 ```
 where $c_L$  is the sound speed in the region I given by
 ```math
@@ -86,7 +86,7 @@ c_L = \sqrt{\frac{\gamma P_L}{\rho_L}}
 ```
 and $\beta$ is given by
 ``` math
-\mu = \frac{\gamma-1}{2\gamma}.
+\beta = \frac{\gamma-1}{2\gamma}.
 ```
 The function $f_R$ is determined by the Rankine-Hugoniot jump conditions for the shock wave and is given by
 ``` math
