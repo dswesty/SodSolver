@@ -116,7 +116,9 @@ With $P_\ast$ one can calculate the speed of sound at the tail of the rarefactio
 c_{tail} = c_L\left( \frac{P_\ast}{P_L} \right)^\beta 
 ```
 With this information one can now calculate the position of the four interfaces
-between the five regions as follows.   The location of the head of the rarefaction (the interface between regions I and II) is given by 
+between the five regions as follows:
+
+The location of the head of the rarefaction (the interface between regions I and II) is given by 
 ```math
   x_{head} = -C_L t
 ```
@@ -135,7 +137,15 @@ x_s = t c_R \sqrt{\mu\left(\frac{p_\ast}{P_R}\right)^\beta}
 ```
 where 
 ```math
-\mu = \frac{\gamma+1}{2\gamma}
+\mu = \frac{\gamma+1}{2\gamma}.
+```
+
+With the position of the interface now known the density, pressure and velocity 
+can now be calculated as a function of position $x$ as 
+
+### For $ x  < x_{head}$
+```math
+\rho\left(x\right) = \rho_L
 ```
 ## The Solution Code and Demonstration Programs 
 
