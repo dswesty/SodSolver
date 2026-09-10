@@ -168,6 +168,16 @@ P\left(x\right) = P_L
 v\left(x\right) = \left(\frac{2}{\gamma+1}\right)
 \left(c_L + \frac{x}{t} \right)
 ```
+### For $x_{tail} \le x < x_c$
+```math
+\rho\left(x\right) = \rho_L \left( \frac{P_\ast}{P_L}\right)^{\frac{1}{\gamma}}
+```
+```math
+P\left(x\right) = P_\ast
+```
+```math
+v\left(x\right) = v_\ast
+```
 
 
 
