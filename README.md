@@ -13,7 +13,7 @@ The problem as stated by Sod is specifies the values for the density $\rho$, the
 P_L\\
 v_L
 \end{array}
-\left)
+\right)
 =
 \left(
 \begin{array}{l}
