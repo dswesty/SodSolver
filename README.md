@@ -91,7 +91,7 @@ and $\beta$ is given by
 The function $f_R$ is determined by the Rankine-Hugoniot jump conditions for the shock wave and is given by
 ``` math
 f_R(P_\ast) = \frac{-2 c_R}{\sqrt{\gamma\left(\gamma-1\right)}}
-\left( \frac{1-\frac{P_\ast}{P_R}}{\sqrt{1+\beta\frac{P_\ast}{P_R}}}\right)
+\left( \frac{1+\omega P_\ast }{\sqrt{1+\lambda P_\ast }}\right)
 ```
 where 
 ``` math
