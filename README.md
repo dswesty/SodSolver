@@ -74,16 +74,28 @@ regions III & V by solving the nonlinear equation
 ``` math
 f_L(P_\ast) + f_R(P_\ast) = 0.
 ```
-In this case $f_L$ is determined by the equations governing the rarefaction
+In this case $f_L$ is determined by the equations describing the rarefaction
 ``` math
 f_L(P_\ast) = \frac{2 c_L}{\gamma-1}
-\left( \left(\frac{P_\ast}{P_L}\right)^\beta -1 \right)
+\left( \left(\frac{P_\ast}{P_L}\right)^\mu -1 \right)
 ```
 where $c_L$  is the sound speed in the region I given by
 ```math
-c_L = \sqrt{\frac{\gamma P_L}{\rho_L}}.
+c_L = \sqrt{\frac{\gamma P_L}{\rho_L}}
 ```
-
+and $\beta$ is given by
+``` math
+\mu = \frac{\gamma-1}{2\gamma}.
+```
+The function $f_R$ is determined by the Rankine-Hugoniot jump conditions for the shock wave as is given by
+``` math
+f_R(P_\ast) = \frac{2 c_R}{\sqrt{\gamma\left(\gamma-1\right)}}
+\left( \frac{1-\frac{P_\ast}{P_R}}{\sqrt{1+\beta\frac{P_\ast}{P_R}}\right)
+```
+where 
+``` math
+\beta = \frac{\gamma+1}{\gamma-1}.
+```
 ## The Solution Code and Demonstration Programs 
 
 The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran was chosen as the programming language in order to allow the use of quadruple precision arithmetic.   Carrying out  the calculations in quadruple precision allows the interative Newton-Raphson procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.  A double precision interface to the solver is available
