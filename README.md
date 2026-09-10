@@ -110,10 +110,28 @@ is the sound speed in the initial right state and
      v_\ast = \frac{2 c_L}{\gamma-1} \left( 1-\frac{p_\ast}{P_L}\right)^\beta
   ```
 
-With $P_\ast$ we can calculate the speed of sound at the tail of the rarefaction 
+With $P_\ast$ one can calculate the speed of sound at the tail of the rarefaction 
 (the interface between regions II and III) as
 ```math
 c_{tail} = c_L\left( \frac{P_\ast}{P_L} \right)^\beta 
+```
+With this information one can now calculate the position of the four interfaces
+between the five regions as follows.   The location of the head of the rarefaction (the interface between regions I and II) is given by 
+```math
+  x_{head} = -C_L t
+```
+and the position of the tail of the rarefaction is given by 
+```math
+x_{tail} = \left(v_\ast-c_{tail}\right) t.
+```
+The location of the contact discontinuity (the interface between regions 
+III & IV is given by
+```math
+x_c = v_\ast t
+```
+while the position of the shock is given by
+```math
+x_s = t c_R \sqrt{\mu\left(\frac{p_\ast}{P_R}\right)^\beta}
 ```
 
 ## The Solution Code and Demonstration Programs 
