@@ -143,10 +143,31 @@ where
 With the position of the interface now known the density, pressure and velocity 
 can now be calculated as a function of position $x$ as 
 
-### For $ x  < x_{head}$
+### For $x< x_{head}$
 ```math
 \rho\left(x\right) = \rho_L
 ```
+```math
+P\left(x\right) = P_L
+```
+```math
+v\left(x\right) = 0
+```
+### For $x_{head} < x < x_{tail}$
+```math
+\rho\left(x\right) = \rho_L \left(\frac{2}{\gamma+1} -
+\frac{\left(\gamma-1\right) x}{\left(\gamma+1\right) c_L t}\right)^{\frac{2}{\gamma-1}}
+```
+```math
+P\left(x\right) = P_L
+```
+```math
+v\left(x\right) = 0
+```
+
+
+
+
 ## The Solution Code and Demonstration Programs 
 
 The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran was chosen as the programming language in order to allow the use of quadruple precision arithmetic.   Carrying out  the calculations in quadruple precision allows the interative Newton-Raphson procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.  A double precision interface to the solver is available
