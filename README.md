@@ -46,7 +46,7 @@ The specification of the problem is completed by specifying an equation of state
 form  $P = K \rho^\gamma$
 where $\gamma$ is the adiabatic index of the gas.  In his original paper Sod took the value of $\gamma = 1.4$,  appropriate for a diatomic ideal gas such as molecular oxygen or molecular nitrogen.  In practice the value of $\gamma=5/3$, reflective of a monatomic ideal gas, is used for numerical verification testing.
 
-## The Structure of the Exact Solution
+## The Structure of the Exact Solution when $P_L > P_R$
 For the exact solution of the weak form of the Euler equations we follow the notation
 of LeVeque (2002)[^2]  The solution of the Sod problem consists of a series of five regions which we list in order, from left to right:
 
@@ -67,13 +67,14 @@ for the Sod initial conditions and $\gamma=5/3$, is shown at $t=0.7$ seconds in 
 5. A constant region with initial right state values of density, pressure, and velocity.
 moving from left to right.](docs/sod_regions.png).
 
-## Calculating the Exact Solution
+## Calculating the Exact Solution assuming $P_L > P_R$
 
 The first step in finding the exact solution of the Riemann problem posed by Sod is to calculate the intermediate pressure $P_\ast$ that spans 
 regions III & V by solving the nonlinear equation 
 ``` math
-f_L(P_\ast) + f_R(P_\ast) = 0.
+f_L(P_\ast) + f_R(P_\ast) = 0
 ```
+by means of Newton-Raphson iteration.
 In this case $f_L$ is determined by the equations describing the rarefaction
 ``` math
 f_L(P_\ast) = \frac{2 c_L}{\gamma-1}
