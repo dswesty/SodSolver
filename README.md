@@ -69,7 +69,7 @@ moving from left to right.](docs/sod_regions.png).
 
 ## Calculating the Exact Solution assuming $P_L > P_R$
 
-The first step in finding the exact solution of the Riemann problem posed by Sod is to calculate the intermediate pressure $P_\ast$ that spans 
+The first step in finding the exact solution of the Riemann problem posed by Sod is to calculate the intermediate pressure $P_{III} = P_{IV} = P_\ast$ that spans 
 regions III & V by solving the nonlinear equation 
 ``` math
 f_L(P_\ast) + f_R(P_\ast) = 0
