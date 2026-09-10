@@ -210,7 +210,7 @@ We refer the reader to LeVeque for
 the details of the solution for the reverse Sod problem.    
 
 Note that the code in this repository can handle both the $P_L > P_R$ and 
-the $P_L < P_R$ cases.
+the $P_L < P_R$ cases.  Graphical examples of these solutions are depcited in the code description in the next section.
 
 
 ## The Solution Code and Demonstration Programs 
