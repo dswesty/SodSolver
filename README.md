@@ -153,16 +153,20 @@ P\left(x\right) = P_L
 ```math
 v\left(x\right) = 0
 ```
-### For $x_{head} < x < x_{tail}$
+### For $x_{head} \le x < x_{tail}$
 ```math
-\rho\left(x\right) = \rho_L \left(\frac{2}{\gamma+1} -
+\rho\left(x\right) = \rho_L
+\left(\frac{2}{\gamma+1} -
 \frac{\left(\gamma-1\right) x}{\left(\gamma+1\right) c_L t}\right)^{\frac{2}{\gamma-1}}
 ```
 ```math
 P\left(x\right) = P_L
+\left(\frac{2}{\gamma+1} -
+\frac{\left(\gamma-1\right) x}{\left(\gamma+1\right) c_L t}\right)^{\frac{2\gamma}{\gamma-1}}
 ```
 ```math
-v\left(x\right) = 0
+v\left(x\right) = \left(\frac{2}{\gamma+1}\right)
+\left(c_L + \frac{x}{t} \right)
 ```
 
 
