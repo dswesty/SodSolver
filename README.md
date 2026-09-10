@@ -79,7 +79,9 @@ In this case $f_L$ is determined by the equations governing the rarefaction
 f_L(P_\ast) = \frac{2 c_L}{\gamma-1}
 \left( \left(\frac{P_\ast}{P_L}\right)^\beta -1 \right)
 ```
-where
+where $c_L$  is the sound speed in the region I given by
+```math
+c_L = \sqrt{\frac{\gamma P_L}{\rho_L}}.
 
 ## The Solution Code and Demonstration Programs 
 
