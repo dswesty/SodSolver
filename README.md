@@ -95,8 +95,13 @@ f_R(P_\ast) = \frac{-2 c_R}{\sqrt{\gamma\left(\gamma-1\right)}}
 ```
 where 
 ``` math
-\beta = \frac{\gamma+1}{\gamma-1}.
+\omega = \frac{-1}{P_\ast}
 ```
+and
+ ```math
+ \lambda = \frac{\gamma+1}{\left(\gamma-1\right) P_R}
+ ```
+
 ## The Solution Code and Demonstration Programs 
 
 The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran was chosen as the programming language in order to allow the use of quadruple precision arithmetic.   Carrying out  the calculations in quadruple precision allows the interative Newton-Raphson procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.  A double precision interface to the solver is available
