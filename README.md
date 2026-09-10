@@ -131,7 +131,7 @@ This file contains a program demonstrating the use of the **`sod_solution`** sub
 named **`reverse_sod_plot.gp`**.   Issuing the command **`gnuplot reverse_sod_plot.gp`** will cause a window to be displayed with the plot.   Editing this script can alternatively produce an image or Postscript file, instead of a new window, with the plot shown below.
 ![This plot contains four subplots depicting the density, pressure, velocity, and specific energy at t=0.7 seconds for a gamma=5/3 gas with the reverse Sod initial conditions.](docs/reverse_sod_exact.png).  
 
-We note that the reverse Sod problem is another important verification test for hydrodynamic codes that can uncover pugs missed 
+We note that the reverse Sod problem is another important verification test for hydrodynamic codes that can uncover bugs missed 
 when only the original Sod problem is used as a test.
 
 
