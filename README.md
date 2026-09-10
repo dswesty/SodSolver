@@ -104,11 +104,18 @@ is the sound speed in the initial right state and
  ```math
  \lambda = \frac{\gamma+1}{\left(\gamma-1\right) P_R}
  ```
-  Once $P_\ast$ has been found one can calculate the 
-  velocities $v_{III} = v_{IV}=v_\ast$ as
+  Once $P_\ast$ has been found one can calculate the intermediate
+  velocity $v_{III} = v_{IV}=v_\ast$ as
   ```math
      v_\ast = \frac{2 c_L}{\gamma-1} \left( 1-\frac{p_\ast}{P_L}\right)^\beta
   ```
+
+With $P_\ast$ we can calculate the speed of sound at the tail of the rarefaction 
+(the interface between regions II and III) as
+```math
+c_{tail} = c_L\left( \frac{P_\ast}{P_L} \right)^\beta 
+```
+
 ## The Solution Code and Demonstration Programs 
 
 The Fortran subroutines in this repository calculate the exact solution and demonstrates the use of the subroutine in the demonstration programs.   Fortran was chosen as the programming language in order to allow the use of quadruple precision arithmetic.   Carrying out  the calculations in quadruple precision allows the interative Newton-Raphson procedure used to solved the equation for the intermediate pressure to converge to a solution with and error tolerance of $10^{-16}$ which (assuming the the input left and right states have values on the order of unity) produces a solution of sufficient precision for use in verification testing a double precision hydrodynamics code.  A double precision interface to the solver is available
