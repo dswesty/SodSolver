@@ -74,7 +74,7 @@ regions III & V by solving the nonlinear equation
 ``` math
 f_L(P_\ast) + f_R(P_\ast) = 0
 ```
-by means of Newton-Raphson iteration.
+for $P_\ast$ by means of Newton-Raphson iteration.
 In this case $f_L$ is determined by the equations describing the rarefaction
 ``` math
 f_L(P_\ast) = \frac{2 c_L}{\gamma-1}
