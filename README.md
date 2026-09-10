@@ -193,7 +193,23 @@ P\left(x\right) = P_\ast
 ```math
 v\left(x\right) = v_\ast
 ```
+### For $x_s \le x$
+```math
+\rho\left(x\right) = \rho_R
+```
+```math
+P\left(x\right) = P_R
+```
+```math
+v\left(x\right) = 0
+```
 
+In the exposition above we have followed the solution as outlined by LeVeque (2002) although our notation differs slightly from that of LeVeque's.   
+For the case where $P_L < P_R$, the reverse Sod problem,  the structure of the solution is the mirror image  of that for the case where $P_L > P_R$. 
+Wee refer the reader to LeVeque for 
+the details of the solution for the reverse Sod problem.    
+The code in this repository can handle both the $P_L > P_R$ and 
+the $P_L < P_R$ cases.
 
 
 ## The Solution Code and Demonstration Programs 
